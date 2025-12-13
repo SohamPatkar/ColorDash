@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "879045346958",
+    "firebase_url": "https://unity-application-19434-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "unity-application-19434",
+    "storage_bucket": "unity-application-19434.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879045346958:android:dc5093abf6c81ea7752bdf",
+        "android_client_info": {
+          "package_name": "com.FirebaseTest.FirebaseTestModel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3YkPiktVWbPL5n7NPZxhf26PgJhDuzmk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879045346958:android:95e5d5fffa0b2f49752bdf",
+        "android_client_info": {
+          "package_name": "com.company.ColorDash"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3YkPiktVWbPL5n7NPZxhf26PgJhDuzmk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

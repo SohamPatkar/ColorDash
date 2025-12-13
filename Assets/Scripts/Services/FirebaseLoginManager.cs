@@ -116,7 +116,7 @@ public class FirebaseLoginManager : MonoBehaviour
                 long score = snapshot.GetValue<long>("Score");
                 Debug.Log("User score: " + score);
 
-                SceneManager.LoadScene("SampleScene");
+                SceneManager.LoadScene("MainGame");
             }
             else
             {

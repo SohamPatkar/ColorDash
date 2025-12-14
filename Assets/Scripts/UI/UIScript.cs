@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using Obstacle;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -14,10 +15,16 @@ public class UIScript : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI usernameText;
     [SerializeField] private TextMeshProUGUI highScore;
+    [SerializeField] private Button leaderBoardButton;
 
     void Start()
     {
-        usernameText.text = GlobalPlayerData.Username;
+        leaderBoardButton.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene("LeaderBoardScene");
+        });
+
+        usernameText.text = $"Player Name: {GlobalPlayerData.Username}";
         GameService.Instance.GetPlayer().OnScoreChange += SetScoreText;
         GameService.Instance.OnPlayerDeath += ShowGameOverPanel;
     }

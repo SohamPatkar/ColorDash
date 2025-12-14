@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System;
 
 [FirestoreData]
 public class User
@@ -27,6 +28,7 @@ public class FirebaseLoginManager : MonoBehaviour
     [SerializeField] TMP_InputField password;
     [SerializeField] Button loginButton;
     [SerializeField] Button registerButton;
+    [SerializeField] Button leaderBoardSceneButton;
     [SerializeField] TextMeshProUGUI feedbackText;
 
     // Start is called before the first frame update
@@ -34,7 +36,14 @@ public class FirebaseLoginManager : MonoBehaviour
     {
         loginButton.onClick.AddListener(OnLoginButtonPressed);
 
+        leaderBoardSceneButton.onClick.AddListener(LoadLeaderboardScene);
+
         registerButton.onClick.AddListener(OnRegisterButtonPressed);
+    }
+
+    private void LoadLeaderboardScene()
+    {
+        SceneManager.LoadScene("LeaderBoardScene");
     }
 
     private void OnRegisterButtonPressed()

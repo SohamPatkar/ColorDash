@@ -27,6 +27,7 @@ public class FirebaseLoginManager : MonoBehaviour
     [SerializeField] TMP_InputField password;
     [SerializeField] Button loginButton;
     [SerializeField] Button registerButton;
+    [SerializeField] TextMeshProUGUI feedbackText;
 
     // Start is called before the first frame update
     void Start()
@@ -56,10 +57,14 @@ public class FirebaseLoginManager : MonoBehaviour
             if (task.IsFaulted)
             {
                 Debug.LogError("Register FAILED: " + task.Exception);
+                feedbackText.text = "Registration failed.";
             }
             else if (task.IsCompleted)
             {
                 Debug.Log("User registered successfully");
+                feedbackText.text = "Registered Successfully.";
+                registerButton.enabled = false;
+                registerButton.image.color = Color.gray;
             }
         });
     }
@@ -75,15 +80,16 @@ public class FirebaseLoginManager : MonoBehaviour
         if (string.IsNullOrEmpty(username.text) || string.IsNullOrEmpty(password.text))
         {
             Debug.LogError("Username or password is empty");
+            feedbackText.text = "Please enter username and password.";
             return;
         }
 
-        string enteredUsername = username.text;
+        string enteredUsername = username.text.Trim();
         string enteredPassword = password.text;
 
-        FirebaseInitializer.Instance.GetUsersCollection().Document(enteredUsername)
-        .GetSnapshotAsync()
-        .ContinueWithOnMainThread(task =>
+        DocumentReference user = FirebaseInitializer.Instance.GetUsersCollection().Document(enteredUsername);
+
+        user.GetSnapshotAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
             {
@@ -96,6 +102,7 @@ public class FirebaseLoginManager : MonoBehaviour
             if (!snapshot.Exists)
             {
                 Debug.Log("User not found");
+                feedbackText.text = "User not found.";
                 return;
             }
 
@@ -121,6 +128,7 @@ public class FirebaseLoginManager : MonoBehaviour
             else
             {
                 Debug.Log("INVALID PASSWORD");
+                feedbackText.text = "Invalid password.";
             }
         });
     }

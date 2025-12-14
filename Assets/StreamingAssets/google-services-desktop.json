@@ -8,39 +8,22 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:879045346958:android:dc5093abf6c81ea7752bdf",
-        "android_client_info": {
-          "package_name": "com.FirebaseTest.FirebaseTestModel"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyD3YkPiktVWbPL5n7NPZxhf26PgJhDuzmk"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:879045346958:android:95e5d5fffa0b2f49752bdf",
+        "mobilesdk_app_id": "1:879045346958:ios:66723abc31820674752bdf",
         "android_client_info": {
           "package_name": "com.company.ColorDash"
         }
       },
-      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyD3YkPiktVWbPL5n7NPZxhf26PgJhDuzmk"
+          "current_key": "AIzaSyBUWeX1Z7zdA1Rn-eBKa2BGtjHVEAmGv84"
         }
       ],
       "services": {
+        "analytics_service": {
+          "status": 0
+        },
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "status": 1
         }
       }
     }

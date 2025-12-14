@@ -6,12 +6,15 @@ using UnityEngine;
 
 public class FirebaseInitializer : MonoBehaviour
 {
+    #region  private members
+
     private FirebaseFirestore db;
     private CollectionReference users;
     private Dictionary<string, object> scoreUpdate = new Dictionary<string, object>();
-
-
     private static FirebaseInitializer instance;
+
+    #endregion
+
     public static FirebaseInitializer Instance { get { return instance; } }
 
     void Awake()

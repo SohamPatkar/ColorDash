@@ -22,7 +22,7 @@ public class LeaderboardScript : MonoBehaviour
 
         var userCollection = FirebaseInitializer.Instance.GetUsersCollection();
 
-        var users = userCollection.OrderByDescending("Score").Limit(4);
+        var users = userCollection.OrderByDescending("Score").Limit(10);
 
         QuerySnapshot snapshot = await users.GetSnapshotAsync();
 

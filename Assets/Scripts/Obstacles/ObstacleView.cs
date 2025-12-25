@@ -37,6 +37,10 @@ namespace Obstacle
                     colorOfSprite.color = Color.blue;
                     break;
 
+                case ColorType.SPEEDDECREASER:
+                    colorOfSprite.color = Color.yellow;
+                    break;
+
                 default:
                     colorOfSprite.color = Color.red;
                     break;
@@ -50,6 +54,11 @@ namespace Obstacle
 
             if (player && (colorOfSprite.color == player.GetSpriteRenderColor()))
             {
+                if (colorOfSprite.color == Color.yellow)
+                {
+                    GameService.Instance.ResetObstacleSpeed();
+                }
+
                 player.OnHit();
                 obstacleController.ObstacleOnHit();
                 SoundManager.Instance.PlaySfxSound(SoundType.Collected);

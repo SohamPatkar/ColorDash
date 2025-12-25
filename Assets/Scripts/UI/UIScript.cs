@@ -29,6 +29,11 @@ public class UIScript : MonoBehaviour
         GameService.Instance.OnPlayerDeath += ShowGameOverPanel;
     }
 
+    public void Yellow()
+    {
+        OnButtonPress?.Invoke(ColorType.SPEEDDECREASER);
+    }
+
     public void ButtonPressBlue()
     {
         OnButtonPress?.Invoke(ColorType.BLUE);

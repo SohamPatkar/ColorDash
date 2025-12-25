@@ -11,7 +11,6 @@ namespace Obstacle
         protected ColorType colorType;
         protected ObstacleView obstacleView;
         protected Transform spawnPoint;
-        private float speed = 0.5f;
 
         public ObstacleController(ColorType colorType, ObstacleView obstacleView, GameObject spawnPoint)
         {
@@ -38,7 +37,11 @@ namespace Obstacle
 
         public void ObstacleOnHit()
         {
-            GameService.Instance.ChangeObstacleSpeed();
+            if (colorType != ColorType.SPEEDDECREASER)
+            {
+                GameService.Instance.ChangeObstacleSpeed();
+            }
+
             GameService.Instance.SpawnObstacle();
             obstacleView.gameObject.SetActive(false);
         }

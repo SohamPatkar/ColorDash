@@ -8,7 +8,8 @@ namespace Obstacle
     {
         RED,
         GREEN,
-        BLUE
+        BLUE,
+        SPEEDDECREASER
     }
 
     [CreateAssetMenu(menuName = "Obstacle Object")]

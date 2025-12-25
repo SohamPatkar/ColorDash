@@ -76,6 +76,11 @@ public class GameService : MonoBehaviour
         obstacleSpeed += Time.deltaTime * speedMultiplier;
     }
 
+    public void ResetObstacleSpeed()
+    {
+        obstacleSpeed -= 0.5f;
+    }
+
     public float GetObstacleSpeed()
     {
         return obstacleSpeed;
@@ -83,7 +88,12 @@ public class GameService : MonoBehaviour
 
     private ColorType GetRandomColor()
     {
-        return colorTypes[UnityEngine.Random.Range(0, colorTypes.Count)];
+        if (obstacleSpeed >= 2.5f)
+        {
+            return ColorType.SPEEDDECREASER;
+        }
+
+        return colorTypes[UnityEngine.Random.Range(0, colorTypes.Count - 1)];
     }
 
     public PlayerScript GetPlayer()
@@ -103,6 +113,9 @@ public class GameService : MonoBehaviour
 
             case ColorType.BLUE:
                 return new BlueObstacle(colorType, obstacleView, spawnPoint);
+
+            case ColorType.SPEEDDECREASER:
+                return new SpeedDecreaser(colorType, obstacleView, spawnPoint);
 
             default:
                 return new ObstacleController(colorType, obstacleView, spawnPoint);

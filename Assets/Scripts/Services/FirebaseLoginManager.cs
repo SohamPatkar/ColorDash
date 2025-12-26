@@ -31,13 +31,21 @@ public class FirebaseLoginManager : MonoBehaviour
     [SerializeField] Button playButton;
     [SerializeField] Button leaderBoardSceneButton;
     [SerializeField] TextMeshProUGUI feedbackText;
+    [SerializeField] GameObject loginForm;
 
     // Start is called before the first frame update
     void Start()
     {
         if (GlobalPlayerData.Username != null)
         {
-
+            loginForm.SetActive(false);
+            playButton.gameObject.SetActive(true);
+            playButton.onClick.AddListener(PlayButtonClicked);
+        }
+        else
+        {
+            playButton.gameObject.SetActive(false);
+            loginForm.SetActive(true);
         }
 
         loginButton.onClick.AddListener(OnLoginButtonPressed);

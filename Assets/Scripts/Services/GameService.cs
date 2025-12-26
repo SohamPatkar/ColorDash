@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Obstacle;
 using Player;
@@ -88,7 +87,7 @@ public class GameService : MonoBehaviour
 
     private ColorType GetRandomColor()
     {
-        if (obstacleSpeed >= 2.5f)
+        if (obstacleSpeed >= UnityEngine.Random.Range(1.5f, 3f))
         {
             return ColorType.SPEEDDECREASER;
         }

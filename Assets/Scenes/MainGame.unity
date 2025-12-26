@@ -866,7 +866,7 @@ MonoBehaviour:
   uIScript: {fileID: 2091375939}
   player: {fileID: 1402879190}
   colorTypes: 01000000020000000000000003000000
-  obstacleSpeed: 1
+  obstacleSpeed: 2
   speedMultiplier: 5
 --- !u!1 &505257150
 GameObject:

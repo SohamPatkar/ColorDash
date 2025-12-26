@@ -1,15 +1,26 @@
 using UnityEngine;
 using Firebase.Firestore;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LeaderboardScript : MonoBehaviour
 {
     [SerializeField] private GameObject leaderboardPanel;
     [SerializeField] private GameObject leaderboardPrefab;
+    [SerializeField] private Button homeButton;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (homeButton != null)
+        {
+            homeButton.onClick.AddListener(() =>
+            {
+                SceneManager.LoadScene("Login");
+            });
+        }
+
         PopulateLeaderboard();
     }
 

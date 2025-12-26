@@ -39,8 +39,6 @@ public class FirebaseInitializer : MonoBehaviour
             {
                 db = FirebaseFirestore.DefaultInstance;
                 users = db.Collection("Users");
-
-                Debug.Log("reached the block");
             }
             else
             {

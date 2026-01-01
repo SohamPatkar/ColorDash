@@ -87,7 +87,7 @@ public class GameService : MonoBehaviour
 
     private ColorType GetRandomColor()
     {
-        if (obstacleSpeed >= UnityEngine.Random.Range(1.5f, 3f))
+        if (obstacleSpeed >= UnityEngine.Random.Range(2f, 3f))
         {
             return ColorType.SPEEDDECREASER;
         }

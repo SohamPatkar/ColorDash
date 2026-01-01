@@ -22,6 +22,15 @@ public class User
     public long Score { get; set; }
 }
 
+[Serializable]
+public class UserDto
+{
+    public string Name;
+    public string PasswordHash;
+    public string PasswordSalt;
+    public int Score;
+}
+
 public class FirebaseLoginManager : MonoBehaviour
 {
     [SerializeField] TMP_InputField username;
@@ -135,9 +144,11 @@ public class FirebaseLoginManager : MonoBehaviour
             }
 
             string playerUsername = snapshot.GetValue<string>("UserName");
+            string passwordHash = snapshot.GetValue<string>("PasswordHash");
+            string passwordSalt = snapshot.GetValue<string>("PasswordSalt");
             int playerScore = snapshot.GetValue<int>("Score");
 
-            GlobalPlayerData.SetPlayerData(playerUsername, playerScore);
+            GlobalPlayerData.SetPlayerData(playerUsername, playerScore, passwordSalt, passwordHash);
 
             string storedHash = snapshot.GetValue<string>("PasswordHash");
             string storedSalt = snapshot.GetValue<string>("PasswordSalt");
@@ -146,16 +157,12 @@ public class FirebaseLoginManager : MonoBehaviour
 
             if (isValid)
             {
-                Debug.Log("LOGIN SUCCESS");
-
                 long score = snapshot.GetValue<long>("Score");
-                Debug.Log("User score: " + score);
 
                 SceneManager.LoadScene("MainGame");
             }
             else
             {
-                Debug.Log("INVALID PASSWORD");
                 feedbackText.text = "Invalid password.";
             }
         });

@@ -43,8 +43,22 @@ public class FirebaseLoginManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI feedbackText;
     [SerializeField] GameObject loginForm;
 
+    #region  private variables
+
     private bool isUsernameValid;
     private bool isPasswordValid;
+    private string hash;
+    private string salt;
+    private string enteredUsername;
+    private string enteredPassword;
+    private string playerUsername;
+    private string playerPasswordHash;
+    private string playerPasswordSalt;
+    private string storedHash;
+    private string storedSalt;
+    private int playerScore;
+
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -93,7 +107,6 @@ public class FirebaseLoginManager : MonoBehaviour
 
     private void OnRegisterButtonPressed()
     {
-        string hash, salt;
         PasswordHasher.CreatePasswordHash(password.text, out hash, out salt);
 
         if (!ValidateInputs())
@@ -116,12 +129,10 @@ public class FirebaseLoginManager : MonoBehaviour
         {
             if (task.IsFaulted)
             {
-                Debug.LogError("Register FAILED: " + task.Exception);
                 feedbackText.text = "Registration failed.";
             }
             else if (task.IsCompleted)
             {
-                Debug.Log("User registered successfully");
                 feedbackText.text = "Registered Successfully.";
                 registerButton.enabled = false;
                 registerButton.image.color = Color.gray;
@@ -144,8 +155,8 @@ public class FirebaseLoginManager : MonoBehaviour
             return;
         }
 
-        string enteredUsername = username.text.Trim();
-        string enteredPassword = password.text;
+        enteredUsername = username.text.Trim();
+        enteredPassword = password.text;
 
         DocumentReference user = FirebaseInitializer.Instance.GetUsersCollection().Document(enteredUsername);
 
@@ -166,15 +177,15 @@ public class FirebaseLoginManager : MonoBehaviour
                 return;
             }
 
-            string playerUsername = snapshot.GetValue<string>("UserName");
-            string passwordHash = snapshot.GetValue<string>("PasswordHash");
-            string passwordSalt = snapshot.GetValue<string>("PasswordSalt");
-            int playerScore = snapshot.GetValue<int>("Score");
+            playerUsername = snapshot.GetValue<string>("UserName");
+            playerPasswordHash = snapshot.GetValue<string>("PasswordHash");
+            playerPasswordSalt = snapshot.GetValue<string>("PasswordSalt");
+            playerScore = snapshot.GetValue<int>("Score");
 
-            GlobalPlayerData.SetPlayerData(playerUsername, playerScore, passwordSalt, passwordHash);
+            GlobalPlayerData.SetPlayerData(playerUsername, playerScore, playerPasswordSalt, playerPasswordHash);
 
-            string storedHash = snapshot.GetValue<string>("PasswordHash");
-            string storedSalt = snapshot.GetValue<string>("PasswordSalt");
+            storedHash = snapshot.GetValue<string>("PasswordHash");
+            storedSalt = snapshot.GetValue<string>("PasswordSalt");
 
             bool isValid = PasswordHasher.VerifyPassword(enteredPassword, storedHash, storedSalt);
 

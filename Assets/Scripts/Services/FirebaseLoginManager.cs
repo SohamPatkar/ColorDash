@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System;
+using Unity.Burst.Intrinsics;
 
 [FirestoreData]
 public class User
@@ -42,6 +43,9 @@ public class FirebaseLoginManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI feedbackText;
     [SerializeField] GameObject loginForm;
 
+    private bool isUsernameValid;
+    private bool isPasswordValid;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -74,10 +78,29 @@ public class FirebaseLoginManager : MonoBehaviour
         SceneManager.LoadScene("LeaderBoardScene");
     }
 
+    private bool ValidateInputs()
+    {
+        isUsernameValid = string.IsNullOrEmpty(username.text);
+        isPasswordValid = string.IsNullOrEmpty(password.text);
+
+        if (isUsernameValid && isPasswordValid)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     private void OnRegisterButtonPressed()
     {
         string hash, salt;
         PasswordHasher.CreatePasswordHash(password.text, out hash, out salt);
+
+        if (!ValidateInputs())
+        {
+            feedbackText.text = "Please enter username and password.";
+            return;
+        }
 
         User newUser = new User
         {
@@ -114,7 +137,7 @@ public class FirebaseLoginManager : MonoBehaviour
             return;
         }
 
-        if (string.IsNullOrEmpty(username.text) || string.IsNullOrEmpty(password.text))
+        if (!ValidateInputs())
         {
             Debug.LogError("Username or password is empty");
             feedbackText.text = "Please enter username and password.";

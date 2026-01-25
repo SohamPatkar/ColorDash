@@ -94,22 +94,14 @@ public class FirebaseLoginManager : MonoBehaviour
 
     private bool ValidateInputs()
     {
-        isUsernameValid = string.IsNullOrEmpty(username.text);
-        isPasswordValid = string.IsNullOrEmpty(password.text);
-
-        if (isUsernameValid && isPasswordValid)
-        {
-            return true;
-        }
-
-        return false;
+        return !string.IsNullOrEmpty(username.text) && !string.IsNullOrEmpty(password.text);
     }
 
     private void OnRegisterButtonPressed()
     {
         PasswordHasher.CreatePasswordHash(password.text, out hash, out salt);
 
-        if (!ValidateInputs())
+        if (ValidateInputs() == false)
         {
             feedbackText.text = "Please enter username and password.";
             return;
@@ -148,7 +140,7 @@ public class FirebaseLoginManager : MonoBehaviour
             return;
         }
 
-        if (!ValidateInputs())
+        if (ValidateInputs() == false)
         {
             Debug.LogError("Username or password is empty");
             feedbackText.text = "Please enter username and password.";

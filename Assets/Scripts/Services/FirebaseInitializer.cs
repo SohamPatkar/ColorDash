@@ -7,16 +7,19 @@ using Firebase.Extensions;
 using UnityEngine.Networking;
 using UnityEngine;
 using System.Net.Security;
+using Unity.VisualScripting.Antlr3.Runtime;
 
 public class FirebaseInitializer : MonoBehaviour
 {
+    [SerializeField] private string _jwttoken;
+
     #region  private members
 
     private FirebaseFirestore db;
     private CollectionReference users;
     private Dictionary<string, object> scoreUpdate = new Dictionary<string, object>();
     private static FirebaseInitializer instance;
-    private static string supabaseUrl = "https://localhost:7046/api";
+    private static string supabaseUrl = "http://localhost:5000";
 
     #endregion
 
@@ -67,7 +70,7 @@ public class FirebaseInitializer : MonoBehaviour
         scoreUpdate["Score"] = GlobalPlayerData.HighScore;
 
 #if UNITY_EDITOR
-        StartCoroutine(SendUserToSupabase("/player"));
+        StartCoroutine(SendUserToSupabase("/health"));
 #endif
 
         users.Document(GlobalPlayerData.Username).UpdateAsync(scoreUpdate);
@@ -88,9 +91,11 @@ public class FirebaseInitializer : MonoBehaviour
 
         string jsonData = JsonUtility.ToJson(newUser);
 
-        using (UnityWebRequest sendUser = new UnityWebRequest(supabaseUrl + controller, "POST"))
+        using (UnityWebRequest sendUser = new UnityWebRequest(supabaseUrl + controller))
         {
             byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+            sendUser.method = "GET";
+            sendUser.SetRequestHeader("authorization", "Bearer " + _jwttoken);
             sendUser.uploadHandler = new UploadHandlerRaw(bodyRaw);
             sendUser.downloadHandler = new DownloadHandlerBuffer();
             sendUser.SetRequestHeader("Content-Type", "application/json");
